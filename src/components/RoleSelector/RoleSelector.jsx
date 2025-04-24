@@ -2,15 +2,20 @@ import React from 'react';
 
 const roles = ['Frontend Developer', 'Backend Developer', 'UI/UX Designer'];
 
-const RoleSelector = ({ setRole }) => {
+const RoleSelector = ({ setRole }) => { //{setRole} is an object because its in a curly bracket and since its used in the arrow function that way to be called somewhere else, it is called a prop.
   return (
     <div>
       <h2>Select a Role to Apply For:</h2>
 
-      {/* MAPPING */}
+      {/* MAPPING THROUGH ROLES */}
+      {/* For each role in the roles array, create a button */}
       {roles.map((r) => (
-        <button key={r} onClick={() => setRole(r)} style={{ margin: '10px' }}>
-          {r}
+        <button
+          key={r} // Unique key required when mapping elements in React
+          onClick={() => setRole(r)} // When button is clicked, setRole is called with the selected role
+          style={{ margin: '10px' }} // Adds spacing between buttons
+        >
+          {r} {/* Display the role name inside the button */}
         </button>
       ))}
     </div>
