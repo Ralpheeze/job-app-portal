@@ -8,17 +8,30 @@ const AppForm = ({ role, formData, setFormData, handleSubmit, errors }) => {
   // This function handles input changes and updates the formData state
   const handleChange = (e) => {
     const { name, value } = e.target;
+    //destructuring of the name and value from the event target. It is the process of extracting properties from an object and assigning them to variables. In this case, name and value are being extracted from the event target (e.target).
+    // e.target is the element that triggered the event (e.g., input, textarea)
+    // name is the name of the input field, and value is the current value of that field
+
+    //const a = 5; //constructing of variable
+    
+    //loose equality: ==
+    //strict equality: ===
 
     // Limit the cover letter to 500 characters
-    if (name === 'coverLetter' && value.length > 500) return;
+    if (name === 'coverLetter' && value.length > 200) return;
 
     // Update the form field based on the input name (e.g., name, email)
-    setFormData((prev) => ({
-      ...prev, // Spread the previous formData
+    setFormData((past) => ({
+      ...past, // Spread the previous formData
       [name]: value, // Update the field that changed
     }));
   };
+//... is called a spread operator. It is used to copy the properties of an object into another object. In this case, it copies all the properties of the previous formData object into the new object being created.
 
+
+  //This is a more concise way to update the formData state. It uses the Object.assign method to create a new object by merging the previous formData with the updated field.
+  // setFormData((past) => Object.assign({}, past, { [name]: value })); // This is another way to update the formData state. It creates a new object by merging the previous formData with the updated field.
+  
   return (
     // The form handles submission when user clicks the submit button
     <form
@@ -75,12 +88,12 @@ const AppForm = ({ role, formData, setFormData, handleSubmit, errors }) => {
       {/* Cover letter textarea with a max length of 500 characters */}
       <textarea
         name="coverLetter"
-        placeholder="Cover Letter (max 500 characters)"
+        placeholder="Cover Letter (max 200 characters)"
         value={coverLetter}
         onChange={handleChange}
       />
       {/* Live character counter */}
-      <p>{coverLetter.length}/500</p>
+      <p>{coverLetter.length}/200</p>
 
       {/* Resume input field (should be a link to a PDF or DOCX file) */}
       <input

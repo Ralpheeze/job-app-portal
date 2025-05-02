@@ -7,15 +7,17 @@ const RoleSelector = ({ setRole }) => { //{setRole} is an object because its in 
     <div>
       <h2>Select a Role to Apply For:</h2>
 
+
       {/* MAPPING THROUGH ROLES */}
       {/* For each role in the roles array, create a button */}
-      {roles.map((r) => (
+      {/* {roles.map((r) => ())} */}
+      {roles.map((role) => (
         <button
-          key={r} // Unique key required when mapping elements in React
-          onClick={() => setRole(r)} // When button is clicked, setRole is called with the selected role
+          key={role} // Unique key required when mapping elements in React
+          onClick={() => setRole(role)} // When button is clicked, setRole is called with the selected role
           style={{ margin: '10px' }} // Adds spacing between buttons
         >
-          {r} {/* Display the role name inside the button */}
+          {role} {/* Display the role name inside the button */}
         </button>
       ))}
     </div>

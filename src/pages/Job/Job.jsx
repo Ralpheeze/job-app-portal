@@ -14,14 +14,14 @@ const Job = () => {
         resume: '',
     }); //stores the form data the user types in for the AppForm component
     const [isSubmitted, setIsSubmitted] = useState(false); //tells us if the form has been submitted or not
-    const [showSummary, setShowSummary] = useState(false); //shows the summary of the form data before submission
+    const [showForm, setShowForm] = useState(true); //shows the form data before reviewing
     // const [error, setError] = useState({});
     const [errors, setErrors] = useState({}); //stores the errors in the form and displays them to the user on the UI
     const [loading, setLoading] = useState(false); //shows the loading state when the form is being submitted
 
     // Function to move from AppForm to AppSummary (preview step)
   const handleSubmit = () => {
-    setShowSummary(true); // Show the summary page
+    setShowForm(true); // Show the summary page
   };
 
   // Function to validate inputs and perform the final submission
@@ -31,6 +31,8 @@ const Job = () => {
     const { name, email } = formData;
 
     // Object to store any form errors
+    // Creates an empty object where any form validation errors will be stored.
+    // If the user leaves the name or email empty, we'll save the errors inside this newErrors object.
     const newErrors = {};
 
     // Check for empty name and email fields
@@ -59,13 +61,19 @@ const Job = () => {
     setRole(''); // Reset selected role
     setFormData({ name: '', email: '', coverLetter: '', resume: '' }); // Clear form fields
     setIsSubmitted(false); // Reset submission status
-    setShowSummary(false); // Hide summary view
+    setShowForm(false); // Hide summary view
   };
 
   return (
     <div className="form-container">
       <h1>Job Application Portal</h1>
-      {/* CONDITIONAL RENDERING: Based on the state, show different components */}
+
+
+      {/* SIMPLE CONDITIONAL RENDERING: THIS IS WERITTEN AS {condition ? option A : option B} */}
+      {/* BUT WHAT WE ARE MAKING USE OF NOW IS COMPLEX CONDTIONAL RENDERING WRITTEN BELOW */}
+      {/* COMPLEX CONDITIONAL RENDERING: Based on the state, show different components: {condition1 ? (expression1) : condition 2 ? (expression2) : condition 3 ? (expression3)}*/}
+
+
       {isSubmitted ? (
         <div>
           <h2>Thank you for applying!</h2>
@@ -73,7 +81,7 @@ const Job = () => {
         </div>
       ) : !role ? ( //if the role has not being selected, then display the Role Selector component
         <RoleSelector setRole={setRole}/> //setRole is props
-      ) : !showSummary ? ( //if the form data has not being filled, then display the AppForm component
+      ) : showForm ? ( //if the form data has not being filled, then display the AppForm component
         <AppForm
           role={role} // Pass selected role
           formData={formData} // Pass form data state
@@ -85,7 +93,7 @@ const Job = () => {
         <AppSummary
           formData={formData} // Pass current form values
           role={role} // Pass selected role
-          goBack={() => setShowSummary(false)} // Allow user to go back and edit
+          goBack={() => setShowForm(false)} // Allow user to go back and edit
           confirmSubmit={confirmSubmit} // Function to finalize submission
           loading={loading} // Show loading state
         />
